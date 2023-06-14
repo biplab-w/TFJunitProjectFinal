@@ -8,8 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class BrowserFactory {
 	static WebDriver driver;
 	static final String URL = "http://techfios.com/test/105/";
-	
-	
+
 	public static WebDriver init() {
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver");
 		driver = new ChromeDriver();
@@ -17,9 +16,8 @@ public class BrowserFactory {
 		driver.manage().window().maximize();
 		driver.get(URL);
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		
+
 		return driver;
 	}
-	
-	
+
 }
