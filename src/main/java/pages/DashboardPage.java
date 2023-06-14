@@ -1,12 +1,12 @@
 package pages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.Select;
 
 public class DashboardPage {
 	WebDriver driver;
@@ -30,8 +30,26 @@ public class DashboardPage {
 	}
 	
 	public List<WebElement> getListItemsCheckboxes(){
-		
 		return listItemsCheckboxes;
 	}
 	
+	public void insertIntoCategoryField(String categoryFieldName) {
+		categoryField.sendKeys(categoryFieldName);
+	}
+	public void clickOnAddCategoryButton() {
+		addCategoryButton.click();
+	}
+	
+	public void insertIntoItemNameField(String itemName) {
+		itemNameField.sendKeys(itemName);
+	}
+	
+	public void selectedItem(String categoryName) {
+		Select categoryDropDown = new Select(select);
+		categoryDropDown.selectByVisibleText(categoryName);
+	}
+	
+	public void clickAddItemButton() {
+		itemAddButton.click();
+	}
 }
