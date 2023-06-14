@@ -70,6 +70,19 @@ public class DashboardPageTest extends BasePage{
 	
 //	Test 3: Validate that all list item could be removed using the 
 //    remove button and when "Toggle All" functionality is on.
+	@Test
+	public void removeAllListItems() {
+		//Selects all the items in the list
+		dashboardPage.clickOnAllCheckBox();
+		
+		//removes all the items in the list
+		dashboardPage.clickOnRemoveButton();
+		
+		//The size of the list should be zero once all the items are removed
+		assertEquals(dashboardPage.getListItems().size(), 0);
+	}
+	
+	
 	
 	public String itemAddHelperMethod() {
 		itemName = "Couch" + generateRandomNumber();

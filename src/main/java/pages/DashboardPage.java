@@ -68,6 +68,10 @@ public class DashboardPage {
 	public void clickAddItemButton() {
 		itemAddButton.click();
 	}
+	
+	public void clickOnRemoveButton() {
+		removeButton.click();
+	}
 
 	public boolean validateSingleItemHasBeenAdded(String itemName) {
 		for (int i = 0; i < listItems.size(); i++) {
@@ -83,8 +87,7 @@ public class DashboardPage {
 		for (int i = 0; i < listItems.size(); i++) {
 		String formattedListName = listItems.get(i).getText().substring(2, listItems.get(i).getText().lastIndexOf(" "));
 			if (formattedListName.equalsIgnoreCase(itemName)) {
-				System.out.println(listItems.get(i).getText());
-				System.out.println();
+				
 				listItemsCheckboxes.get(i).click();
 				removeButton.click();
 				foundListName = formattedListName;
