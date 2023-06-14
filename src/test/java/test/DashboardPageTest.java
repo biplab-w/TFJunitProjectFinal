@@ -12,6 +12,8 @@ import util.BrowserFactory;
 
 public class DashboardPageTest {
 	WebDriver driver;
+	String categoryName = "Furniture";
+	String itemName = "couch--sofa";
 	
 	@Test
 	public void checkAllCheckBoxes() {
