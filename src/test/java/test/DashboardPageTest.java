@@ -83,7 +83,7 @@ public class DashboardPageTest extends BasePage{
 	}
 	
 	
-	
+//Helper Method
 	public String itemAddHelperMethod() {
 		itemName = "Couch" + generateRandomNumber();
 		dashboardPage.insertIntoItemNameField(itemName);
