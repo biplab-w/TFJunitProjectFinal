@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,28 +14,32 @@ import util.BrowserFactory;
 
 public class DashboardPageTest extends BasePage{
 	WebDriver driver;
-	DashboardPage dp;
+	DashboardPage dashboardPage;
 	String categoryName;
 	String itemName;
+	
 	@Before
 	public void initializeBrowser() {
 		driver = BrowserFactory.init();
-		dp = PageFactory.initElements(driver, DashboardPage.class);
+		dashboardPage = PageFactory.initElements(driver, DashboardPage.class);
 		categoryName = "Furniture" + generateRandomNumber();
-		itemName = "Couch" + generateRandomNumber();
 	}
 	
 	@Test
 	public void checkAllCheckBoxes() {
 		 
-		dp = PageFactory.initElements(driver, DashboardPage.class);
 //		Test 1: Validate when the toggle all check box is CHECKED, 
 //      all check boxes for list items are also CHECKED ON.
-		dp.clickOnAllCheckBox();
+
+		//Add some items -- since the list might be empty at first
+		for(int i=0; i<4; i++) {
+			itemAddHelperMethod();
+		}
+		dashboardPage.clickOnAllCheckBox();
 		
-		//assert all checkboxes are selected
-		if((dp.getListItemsCheckboxes()).size() !=0) {
-		for(WebElement item : dp.getListItemsCheckboxes()) {
+		//assert all checkboxes are selected if the checkboxes are of length more than 1
+		if((dashboardPage.getListItemsCheckboxes()).size() !=0) {
+		for(WebElement item : dashboardPage.getListItemsCheckboxes()) {
 			assertTrue(item.isSelected());
 		}
 		}
@@ -47,15 +51,19 @@ public class DashboardPageTest extends BasePage{
 	@Test
 	public void checkSingleItemRemoved() {
 		
-		//Lets add the item first and remove the same item
-		//Lets randomize the category name everytime fill the field
-		dp.insertIntoCategoryField(categoryName);
-		dp.clickOnAddCategoryButton();
-		dp.insertIntoItemNameField(itemName);
-		dp.clickAddItemButton();
+		//Add the item first and remove the same item
+		//Randomize the category name everytime fill the field
+		dashboardPage.insertIntoCategoryField(categoryName);
+		dashboardPage.clickOnAddCategoryButton();
+		
+		//Add items using helper method
+		String itemN = itemAddHelperMethod();
 		
 		//Validate the item name has been added correctly
-		assertTrue(dp.validateSingleItemHasBeenAdded(itemName));
+		assertTrue(dashboardPage.validateSingleItemHasBeenAdded(itemName));
+		
+		//select single list Item and remove it
+		assertEquals(dashboardPage.removeSingleItemAndValidate(itemName), itemN);
 		
 		
 	}
@@ -63,5 +71,11 @@ public class DashboardPageTest extends BasePage{
 //	Test 3: Validate that all list item could be removed using the 
 //    remove button and when "Toggle All" functionality is on.
 	
+	public String itemAddHelperMethod() {
+		itemName = "Couch" + generateRandomNumber();
+		dashboardPage.insertIntoItemNameField(itemName);
+		dashboardPage.clickAddItemButton();
+		return itemName;
+	}
 	
 }
