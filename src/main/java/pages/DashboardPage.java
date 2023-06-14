@@ -18,11 +18,13 @@ public class DashboardPage {
 	//WebElements
 	@FindBy(how =How.CSS, using="input[name='allbox']") WebElement allCheckBox;
 	@FindBy(how =How.CSS, using="input[name^='todo']") List<WebElement> listItemsCheckboxes;
-	@FindBy(how=How.CSS, using="input[name='categorydata']") WebElement categoryField;
-	@FindBy(how= How.CSS, using="input[value='Add category']") WebElement addCategoryButton;
-	@FindBy(how= How.CSS, using ="input[name='data']") WebElement itemNameField;
-	@FindBy(how=How.CSS, using ="input[value='Add']") WebElement itemAddButton;
-	@FindBy(how=How.CSS, using ="select[name='category']") WebElement select;
+	@FindBy(how =How.CSS, using="li") List<WebElement> listItems;
+	@FindBy(how = How.CSS, using="input[name='categorydata']") WebElement categoryField;
+	@FindBy(how = How.CSS, using="input[value='Add category']") WebElement addCategoryButton;
+	@FindBy(how = How.CSS, using ="input[name='data']") WebElement itemNameField;
+	@FindBy(how =How.CSS, using ="input[value='Add']") WebElement itemAddButton;
+	@FindBy(how = How.CSS, using="") WebElement removeButton;
+	@FindBy(how = How.CSS, using ="select[name='category']") WebElement select;
 	//Interactable methods
 	
 	public void clickOnAllCheckBox() {
@@ -51,5 +53,15 @@ public class DashboardPage {
 	
 	public void clickAddItemButton() {
 		itemAddButton.click();
+	}
+	
+	public boolean validateSingleItemHasBeenAdded(String itemName) {
+		System.out.println("The category name is: "  + itemName);
+		for(int i =0; i < listItems.size(); i++) {
+			if(listItems.get(i).getText().contains(itemName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
