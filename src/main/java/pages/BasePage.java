@@ -1,4 +1,4 @@
-package util;
+package pages;
 
 public class BasePage {
 	public int generateRandomNumber() {

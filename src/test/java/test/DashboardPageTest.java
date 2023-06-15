@@ -1,15 +1,18 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import pages.BasePage;
 import pages.DashboardPage;
-import util.BasePage;
 import util.BrowserFactory;
 
 public class DashboardPageTest extends BasePage {
@@ -38,7 +41,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.clickOnAllCheckBox();
 
 		// assert all checkboxes are selected if the checkboxes are of length more than
-		// 1
+		// 0
 		if ((dashboardPage.getListItemsCheckboxes()).size() != 0) {
 			for (WebElement item : dashboardPage.getListItemsCheckboxes()) {
 				assertTrue(item.isSelected());
@@ -81,6 +84,16 @@ public class DashboardPageTest extends BasePage {
 		assertEquals(dashboardPage.getListItems().size(), 0);
 	}
 
+	@After
+	public void closeBrowsers() {
+		BrowserFactory.teardown();
+	}
+	
+	@AfterClass
+	public static void quitBrowserDriver() {
+		BrowserFactory.teardownAll();
+	}
+	
 //Helper Method
 	public String itemAddHelperMethod() {
 		itemName = "Couch" + generateRandomNumber();
